@@ -1,22 +1,16 @@
 package routers
 
 import (
-	apiControllerV1 "Golang-Project-Structure/controllers/api/v1"
-	"Golang-Project-Structure/middlewares"
+	apiController "farnam-street-api-go/controllers"
 	"github.com/gin-gonic/gin"
 )
 
-//SetupRouter function will perform all route operations
 func SetupRouter() *gin.Engine {
 
 	r := gin.Default()
 
 	//Giving access to storage folder
 	r.Static("/storage", "storage")
-
-	//Giving access to template folder
-	r.Static("/templates", "templates")
-	r.LoadHTMLGlob("templates/*")
 
 	r.Use(func(c *gin.Context) {
 		// add header Access-Control-Allow-Origin
@@ -34,14 +28,16 @@ func SetupRouter() *gin.Engine {
 		}
 	})
 
-	//API route for version 1
-	v1 := r.Group("/api/v1")
+	// API route for version 1
+	api := r.Group("/api")
+
+	// v1.Use(middlewares.UserMiddlewares())
+	// {
+	// 	v1.POST("user-list", apiControllerV1.UserList)
+	// }
+	api.GET("asset", apiController.AssetList)
 
 	//If you want to pass your route through specific middlewares
-	v1.Use(middlewares.UserMiddlewares())
-	{
-		v1.POST("user-list", apiControllerV1.UserList)
-	}
 
 	return r
 
