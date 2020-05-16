@@ -1,8 +1,11 @@
 package controllers
 
 import (
-	apiHelpers "farnam-street-api-go/apiHelpers"
+	apiHelpers "farnam-street-api-go/handlers"
 	assetService "farnam-street-api-go/services"
+	//"fmt"
+
+	//"github.com/graphql-go/graphql"
 	// "encoding/json"
 	"github.com/gin-gonic/gin"
 )
@@ -23,4 +26,19 @@ func AssetList(c *gin.Context) {
 	// //return response using api helper
 	apiHelpers.Respond(c.Writer, resp)
 
+}
+
+func Asset(c *gin.Context) {
+	resp := assetService.Asset()
+
+	apiHelpers.Respond(c.Writer, resp)
+}
+
+func AssetGraphql(c *gin.Context){
+
+
+	queryParameters := c.Request.URL.Query()
+	graphqlQuery := queryParameters["query"][0]
+	resp := assetService.AssetGraphQL(graphqlQuery)
+	apiHelpers.Respond(c.Writer, resp)
 }

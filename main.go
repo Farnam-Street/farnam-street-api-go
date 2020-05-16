@@ -8,9 +8,9 @@ import (
 func main() {
 	fmt.Println("Sample GO Lang Program")
 	r := Routers.SetupRouter()
+
 	// type Job interface {
 	// 	Run()
 	// }
-
 	r.Run(":8080")
 }

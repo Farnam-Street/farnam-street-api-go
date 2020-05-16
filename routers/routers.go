@@ -35,7 +35,9 @@ func SetupRouter() *gin.Engine {
 	// {
 	// 	v1.POST("user-list", apiControllerV1.UserList)
 	// }
-	api.GET("asset", apiController.AssetList)
+	api.GET("assets", apiController.AssetList)
+	api.GET("asset", apiController.Asset)
+	api.GET("assetgraphql", apiController.AssetGraphql)
 
 	//If you want to pass your route through specific middlewares
 
